@@ -1,0 +1,12 @@
+html
+	head
+		title user info app
+		body
+			h1 User Info Application
+			.container
+				h2 Hi users,
+				hr
+				each user in users
+					.card.card-block
+						h4(class="card-title")= user.firstname + " " + user.lastname
+						p(class="card-text")= "Email: " + user.email
