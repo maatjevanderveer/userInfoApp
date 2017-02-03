@@ -4,4 +4,14 @@ html
 
 		title USER INFO APP
 	body
-		block content
+		//- load navbar.pug
+		include navbar
+
+		//- show here the index if ./index
+		block index
+
+		//- show here the search bar if ./search
+		block search
+
+		//- show the registration form if ./register
+		block register
