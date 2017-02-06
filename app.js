@@ -18,21 +18,21 @@ app.get('/', (request, response) => {
 	response.render('index', {users: parsedUsers.getUsers() }); //render is how we take a pug template and render it as normal HTML
 });
 
-// render a page, that displays a form which is the search bar
+// render the search.pug file and send it to the browser (displays a form which is the search bar)
 app.get('/search', (request, response) => {
 	response.render('search')
 });
 
-//render a page that displays a registration form for new users
+//render the register.pug file, and send it to the browser (displays a registration form for new users)
 app.get('/register', (request, response) => {
 	response.render('register')
 });
 
 // takes in the post request from your search bar.
-app.post('/search', (request, response) => {
-	var searchQuery = request.body.search
-	// receive the form data and store in variable
-});
+// app.post('/search', (request, response) => {
+// 	var searchQuery = request.body.search
+// 	// receive the form data and store in variable
+// });
 
 // takes in the post request from your register form.
 app.post('/register', (request, response) => {
