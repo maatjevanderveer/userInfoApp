@@ -14,3 +14,14 @@ html
 
 		//- REGISTER FORM
 		h1 Register
+
+		form(action='/register' method='post')
+			label(for='firstname') First name:
+			input(type='text', placeholder='type first name here...', name='newfirstname')
+
+			label(for='lastname') Last name:
+			input(type='text', placeholder='type last name here...', name='newlastname')
+
+			label(for='email') E-mail:
+			input(type='text', placeholder='type email here...', name='newemail')
+		button(type='submit') Register me now
