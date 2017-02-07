@@ -54,9 +54,18 @@ app.post('/search', function (request, response) {
 	});
 });
 
-// takes in the post request from your register form.
 app.post('/register', (request, response) => {
-	// receive the form data
+	var newuser = {
+		firstname: request.body.newfirstname, 
+		lastname: request.body.newlastname, 
+		email: request.body.newemail
+	}
+	fs.writeFile('users.json', JSON.stringify(newuser), (error, data) => {     //Convert a JavaScript object into a string with JSON.stringify().
+		if (error) {
+			throw error
+		};
+	})
+	// response.redirect()
 });
 
 app.listen(3000, () => {
