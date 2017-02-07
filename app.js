@@ -48,7 +48,7 @@ app.post('/search', function (request, response) {
 			if (searchQuery === parsedUsers[i].firstname || searchQuery === parsedUsers[i].lastname || searchQuery === parsedUsers[i].email){
 				console.log('found!')
 				console.log(parsedUsers[i])
-				response.render('searchResults', {parsedUser: parsedUsers[i]})
+				response.render('searchResults', {foundUser: parsedUsers[i]})
 			}
 		};
 	});
