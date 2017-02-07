@@ -1,0 +1,12 @@
+extends ./application.pug
+
+block index
+
+	.main.container.row
+		.col-md-6.col-md-offset-3
+			h1.display-4.md-b-2 All users
+			
+			each user in users
+				.card.card-block
+					h6(class="card-title")= user.firstname + " " + user.lastname
+					p(class="card-text")= "Email: " + user.email

@@ -1,8 +1,11 @@
-extends ./application.pug
+html
+	head
+		title Results
+	body
 
-block search
+		//- RESULT OF SEARCH QUERY
 
-	.container
-		h1 Search Results:
-
-		
+		h1 Results
+	
+		p Name: #{parsedUser.firstname} #{parsedUser.lastname}
+		p Email: #{parsedUser.email}

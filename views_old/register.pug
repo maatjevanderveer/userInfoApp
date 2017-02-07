@@ -1,0 +1,24 @@
+extends ./application.pug
+
+block register
+
+	.main.container.row
+		.col-md-6.col-md-offset-3
+			h1.display-4.m-b-2 Register
+
+			//- register form
+			//-  a form element with a method attribute and an action attribute
+			//-  method refers to the HTTP method (POST) that the browser uses to submit the form: post because you post information to the web server
+			//- action refers to where the form data will be processed, in this case in register.pug
+			form(method='POST' action='/register')
+				div.form-group
+					label(for='firstName') First Name:
+					input#firstname.form-control(type='text', placeholder='first name' name='first name')
+				div.form-group
+					label(for='lastName') Last Name:
+					input#lastname.form-control(type='text', placeholder='last name' name='last name')
+				div.form-group
+					label(for='email') Email:
+					input#email.form-control(type='email', placeholder='name@email.com' name='email')
+				button.btn.btn-primary(type='submit') Sign up
+

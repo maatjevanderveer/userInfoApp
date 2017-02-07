@@ -1,12 +1,19 @@
-extends ./application.pug
+html
+	head
+		title USER INFO APP
+	body
 
-block index
+		//- NAV BAR
+		nav
+			a(href='/') USER INFO APPLICATION
+			ul
+				li 
+					a(href='/search') SEARCH
+				li
+					a(href='/register') REGISTER
 
-	.main.container.row
-		.col-md-6.col-md-offset-3
-			h1.display-4.md-b-2 All users
-			
-			each user in users
-				.card.card-block
-					h6(class="card-title")= user.firstname + " " + user.lastname
-					p(class="card-text")= "Email: " + user.email
+		//- INDEX WITH ALL USERS
+		h1 All users
+		each user in parsedUsers
+			p Name: #{user.firstname} #{user.lastname}
+			p Email: #{user.email}
