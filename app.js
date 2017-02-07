@@ -34,6 +34,7 @@ app.get('/register', (request, response) => {
 	response.render('register')
 });
 
+// SEARCH BAR
 // post results in new page searchResults.pug
 app.post('/search', function (request, response) {
 	var searchQuery = request.body.searchquery; //request the value written in the searchbar and store it into var
@@ -54,21 +55,32 @@ app.post('/search', function (request, response) {
 	});
 });
 
+// CREATE NEW USER
 app.post('/register', (request, response) => {
-	var newuser = {
-		firstname: request.body.newfirstname, 
-		lastname: request.body.newlastname, 
-		email: request.body.newemail
-	}
-	fs.writeFile('users.json', JSON.stringify(newuser), (error, data) => {     //Convert a JavaScript object into a string with JSON.stringify().
+	fs.readFile(__dirname + '/users.json', 'utf-8', (error, data) => { 	//lees users.json in
 		if (error) {
 			throw error
 		};
-	})
-	// response.redirect()
+		const parsedUsers = JSON.parse(data); // parse users.json file 
+
+		const newuser = {
+			firstname: request.body.newfirstname, 
+			lastname: request.body.newlastname, 
+			email: request.body.newemail
+		}
+
+		parsedUsers.push(newuser)
+		const usersStringified = JSON.stringify(parsedUsers)
+
+		fs.writeFile(__dirname + '/users.json', usersStringified, 'utf-8', (error, data) => {     //Convert a JavaScript object into a string with JSON.stringify().
+			if (error) {
+				throw error
+			}
+		})
+		response.redirect('/')
+	});
 });
 
 app.listen(3000, () => {
 	console.log('Web Server is running on port 3000')
 });
-
