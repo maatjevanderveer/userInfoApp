@@ -1,10 +1,13 @@
 // CREATE THE ROUTE
 
+// import necessary libraries
 var express = require('express');
 var app = express();
+var getUsers = require('getUsers') // import the module defined in userreader.js
 
 // To make use of Express' routing capabilities you need to initiate a new Express Router.
 var router = express.Router();
+
 // tell Express to use your router
 app.use(router);
 
@@ -20,6 +23,11 @@ app.post('/searchResults', function (request, response) {
 	// response.end('Search Query: ' + search)
 	console.log(searchQuery)
 });
+
+// readFile
+// json.Parse()
+// if ...=== ... || ... === ... || 
+// else
 
 
 
