@@ -13,8 +13,8 @@
   "author": "Maatje van der Veer",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.16.0",
+    "body-parser": "^1.16.1",
     "express": "^4.14.1",
-    "pug": "^2.0.0-beta10"
+    "pug": "^2.0.0-beta11"
   }
 }
