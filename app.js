@@ -8,7 +8,9 @@ var fs = require('fs') // load the fs (filesystem) library for the readFile() me
 app.set('view engine', 'pug'); // pug is defined as the view engine in the express application
 app.set('views', './views') // this defaults to the view directory in the application root directory
 
-//for all the routing make use of the bodyparser --> Parses the text as URL encoded data (which is how browsers tend to send form data from regular forms set to POST) and exposes the resulting object (containing the keys and values) on req.body. 
+//MIDDLEWARE
+app.use(express.static('static'));
+// for all the routing make use of the bodyparser --> Parses the text as URL encoded data (which is how browsers tend to send form data from regular forms set to POST) and exposes the resulting object (containing the keys and values) on req.body. 
 app.use(bodyparser.urlencoded({extended: false}));
 app.use(bodyparser.json());
 
@@ -34,26 +36,54 @@ app.get('/register', (request, response) => {
 	response.render('register')
 });
 
-// SEARCH BAR
+// SEARCH BAR 
 // post results in new page searchResults.pug
-app.post('/search', function (request, response) {
-	var searchQuery = request.body.searchquery; //request the value written in the searchbar and store it into var
+// app.post('/search', function (request, response) {
+// 	var searchQuery = request.body.searchquery; //request the value written in the searchbar and store it into var
 
+// 	fs.readFile('./users.json', (error, data) => { 	//lees users.json in
+// 		if (error) {
+// 			throw error
+// 		};
+// 		var parsedUsers = JSON.parse(data); // parse users.json file 
+
+// 		for(var i=0; i < parsedUsers.length; i++) {
+// 			if (searchQuery === parsedUsers[i].firstname || searchQuery === parsedUsers[i].lastname || searchQuery === parsedUsers[i].email){
+// 				console.log('found!')
+// 				console.log(parsedUsers[i])
+// 				response.render('searchResults', {foundUser: parsedUsers[i]})
+// 			}
+// 		};
+// 	});
+// });
+
+// SEARCH BAR W/ AUTOCOMPLETE
+// post results in new page searchResults.pug
+app.post('/searchKeyUp', function (request, response) {
+	const searchQuery = request.body.userInput; //request the value written in the searchbar and store it into var
+	const result =[]
 	fs.readFile('./users.json', (error, data) => { 	//lees users.json in
 		if (error) {
 			throw error
 		};
-		var parsedUsers = JSON.parse(data); // parse users.json file 
-
-		for(var i=0; i < parsedUsers.length; i++) {
-			if (searchQuery === parsedUsers[i].firstname || searchQuery === parsedUsers[i].lastname || searchQuery === parsedUsers[i].email){
-				console.log('found!')
+		
+		const parsedUsers = JSON.parse(data); // parse users.json file, now it is an array with objects  
+		for(var i=0; i < parsedUsers.length; i++) { // loop through the array
+			const firstname = parsedUsers[i].firstname
+			const lastname = parsedUsers[i].lastname
+			const email = parsedUsers[i].email
+			if (firstname.indexOf(searchQuery) >=0 ||lastname.indexOf(searchQuery) >=0 ||email.indexOf(searchQuery) >=0){
 				console.log(parsedUsers[i])
-				response.render('searchResults', {foundUser: parsedUsers[i]})
+				result.push(parsedUsers[i])
 			}
 		};
+		response.send({result:result});
 	});
+
 });
+
+
+
 
 // CREATE NEW USER
 app.post('/register', (request, response) => {

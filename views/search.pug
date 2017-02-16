@@ -1,21 +1,50 @@
 html
-	head
-		title SEARCH
-	body
+    head
+        title SEARCH
+    body
 
-		//- NAV BAR
-		nav
-			a(href='/') USER INFO APPLICATION
-			ul
-				li 
-					a(href='/search') SEARCH
-				li
-					a(href='/register') CREATE USER
+        //- NAV BAR
+        nav
+            a(href='/') USER INFO APPLICATION
+            ul
+                li 
+                    a(href='/search') SEARCH
+                li
+                    a(href='/register') CREATE USER
 
-		//- SEARCH FORM
-		h1 Search
-		
-		form(action='/search' method='post')
-			label(for='searchquery') Search:
-			input(type='text', placeholder='type here...', name='searchquery')
-		button(type='submit') Search
+        //- SEARCH FORM
+        h1 Search
+        
+        form(action='/search' method='post')
+            label(for='searchquery') Search:
+            input(list="foundUsers", type='text', placeholder='type here...', name='searchquery')
+            datalist#foundUsers
+            button(type='submit') Search
+
+        
+            //- form(action='/search' method='post')
+            //-     input(list='users', name='user')
+            //-         datalist#users
+            //-             option(value='Internet Explorer')
+            //-             option(value='Firefox')
+            //-             option(value='Chrome')
+            //-             option(value='Opera')
+            //-             option(value='Safari')
+
+            p no results
+
+
+
+        script(src='js/jquery-3.1.1.js')
+
+        script.
+            $("input").keyup(function() {
+                var userInput = $(this).val()
+                $("#foundUsers").empty();
+                $.post('/searchKeyUp', {userInput:userInput}, function (response, status) {
+                    console.log(status)
+                    for (var i=0; i < response.result.length; i++) {
+                        $("#foundUsers").append("<option>" + response.result[i].firstname + " " + response.result[i].lastname + " Email: " + response.result[i].email + "</option>") // append to ('#list')
+                        }
+                });
+            });
