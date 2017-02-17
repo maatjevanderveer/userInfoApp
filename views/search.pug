@@ -38,13 +38,31 @@ html
         script(src='js/jquery-3.1.1.js')
 
         script.
+          // var date second keypress
+          // var date first keypress
+          // date second keypress - date first keypress = iets
+          // als IETS > 300ms
+            // post 
+
+            var oldKeypressAt = 0
+            // a function is triggered when keypress in 'input' (= the selector)
             $("input").keyup(function() {
-                var userInput = $(this).val()
+              // set keypress time to the current time
+              const newKeypressAt = new Date(); 
+              if (newKeypressAt - oldKeypressAt > 300) {
+
+                // we want to post the autocomplete searchresults
+                const userInput = $(this).val()
                 $("#foundUsers").empty();
                 $.post('/searchKeyUp', {userInput:userInput}, function (response, status) {
                     console.log(status)
                     for (var i=0; i < response.result.length; i++) {
                         $("#foundUsers").append("<option>" + response.result[i].firstname + " " + response.result[i].lastname + " Email: " + response.result[i].email + "</option>") // append to ('#list')
                         }
-                });
+                  });
+                  // newKeypressAt replaces the value in oldKeypressAt
+                  oldKeypressAt = newKeypressAt
+                } else {
+                  console.log("you pressed two keypresses within X milliseconds")
+                }
             });
